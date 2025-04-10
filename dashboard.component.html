@@ -1,0 +1,55 @@
+<div class="header">
+    <h2>Brand</h2>
+    <div>
+       <button (click)="showForm()">Add Customer</button>
+        <button (click)="logout()">Logout</button>
+    </div>
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Fullname</th>
+                <th>Email Address</th>
+                <th>Date </th>
+                <th>Genter</th>
+                <th>Mobile</th>
+                <th>amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customer of customerArr">
+                <td>{{customer.fullname}}</td>
+                <td>{{customer.emailAdd}}</td>
+                <td>{{customer.dob | date}}</td>
+                <td>{{customer.gender}}</td>
+                <td>{{customer.mobile}}</td>
+                <td>{{customer.amount | currency:'INR'}}</td>
+                <td class="action">
+                    <button (click)="editCustomer(customer.id)">Edit</button>
+                    <button (click)="deleteCustomer(customer.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container" [ngStyle]="{'display':show ? 'block' : 'none'}">
+    <div class="title-field">
+        <h2>{{title}}</h2>
+    </div>
+    <form [formGroup]="fb"(ngSubmit)="addCustomer()">
+        <input type="text" placeholder="Fullname" formControlName="fullname">
+        <input type="email" placeholder="Email address" formControlName="emailAdd">
+        <input type="date" formControlName="dob">
+        <select formControlName="gender">
+            <option selected value="">Genter</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <input type="text" placeholder="Mobie No" formControlName="mobile">
+        <input type="Number" placeholder="product amount" formControlName="amount">
+        <input type="submit" [value]="title">
+        <button>Close</button>
+    </form>
+</div>
